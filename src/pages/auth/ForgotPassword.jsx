@@ -45,9 +45,11 @@ const ForgotPassword = () => {
   const onSubmit = async (data) => {
     try {
       const userData = await forgotPassword(data).unwrap();
-      dispatch(setCredentials(userData));
-      if (userData?.success) return navigate("/auth/reset-password");
+      dispatch(setCredentials({ userData }));
+
+      navigate("/auth/reset-password");
       reset();
+
     } catch (rejectResp) {
       const { data } = rejectResp;
       if (data?.errors) {

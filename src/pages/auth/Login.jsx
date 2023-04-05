@@ -60,7 +60,6 @@ const Login = () => {
   const handleToggle = () => setPersist(prev => !prev)
 
   const onSubmitHandler = async (data) => {
-    console.log(data);
     try {
       const userData = await login(data).unwrap()
       dispatch(setCredentials({ userData }))
@@ -69,7 +68,6 @@ const Login = () => {
 
     } catch (rejectResp) {
       const { data } = rejectResp
-      console.log(data);
       if (data?.errors) {
         data.errors.forEach(error => setError(error["param"], { type: "manual", message: error["msg"] }))
       } else {
