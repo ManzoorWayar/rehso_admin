@@ -9,7 +9,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
         getUsers: builder.query({
             query: () => ({
-                url: "/admin/admin-users",
+                url: "/user/getAll",
                 validateStatus: (response, result) => {
                     return response.status === 200 && !result.isError;
                 },
@@ -33,7 +33,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
         }),
         addUser: builder.mutation({
             query: payload => ({
-                url: '/admin/admin-users',
+                url: '/user/create',
                 method: 'POST',
                 body: payload
             }),
@@ -44,7 +44,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
         updateUser: builder.mutation({
             query: (payload) => {
                 return {
-                    url: `/admin/admin-users/${payload?.id}`,
+                    url: `/user/update/${payload?.id}`,
                     method: "PUT",
                     body: payload.formData,
                 }
@@ -53,7 +53,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
         }),
         deleteUser: builder.mutation({
             query: (id) => ({
-                url: `/admin/admin-users/${id}`,
+                url: `/user/delete/${id}`,
                 method: 'DELETE',
             }),
             invalidatesTags: (result, error, arg) => [

@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import {
   Container,
   Box,
@@ -7,24 +8,68 @@ import {
   CircularProgress,
   Button,
 } from "@mui/material";
+import ForgotPasswords from "../../utils/validationSchema/ForgotPassword";
+import { useTranslation } from "react-i18next";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate, Link } from "react-router-dom";
+import withReactContent from "sweetalert2-react-content";
+import Swal from "sweetalert2";
+import { useForgotPasswordMutation } from "../../features/auth/authApiSlice";
+import { setCredentials } from "../../features/auth/authSlice";
 import Meta from '../../components/common/Meta'
+const MySwal = withReactContent(Swal);
 
 const ForgotPassword = () => {
+  const { t } = useTranslation();
   const theme = useTheme();
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [forgotPassword, { isLoading, isSuccess }] =
+    useForgotPasswordMutation();
+
   const {
     register,
-    formState: { errors },
     handleSubmit,
-  } = useForm();
-  const onSubmit = (data) => console.log(data);
+    setError,
+    formState: { errors, isSubmitting },
+    reset,
+  } = useForm({
+    mode: "onChange",
+    resolver: yupResolver(ForgotPasswords),
+  });
 
-  const [loading, setLoading] = useState(false);
+  const onSubmit = async (data) => {
+    try {
+      const userData = await forgotPassword(data).unwrap();
+      dispatch(setCredentials(userData));
+      if (userData?.success) return navigate("/auth/reset-password");
+      reset();
+    } catch (rejectResp) {
+      const { data } = rejectResp;
+      if (data?.errors) {
+        data.errors.forEach((error) =>
+          setError(error["param"], { type: "manual", message: error["msg"] })
+        );
+      } else {
+        MySwal.fire({
+          title: t("error"),
+          text: t(data?.message),
+          icon: "warning",
+          timer: 2000,
+          timerProgressBar: true,
+          showConfirmButton: false,
+        });
+      }
+    }
+  };
 
   return (
     <>
-      <Meta title="forgot-password | Rahanet Dashboard" />
+      <Meta title="forgot password | REHSO Dashboard" />
       <Container
         maxWidth="sm"
         sx={{
@@ -70,11 +115,10 @@ const ForgotPassword = () => {
                 {...register("email", { required: true })}
                 fullWidth
                 id="email"
-                type="email"
                 label="Email"
                 variant="outlined"
                 error={errors.email ? true : false}
-                helperText={errors.email && "This field is required"}
+                helperText={errors.email?.message}
                 sx={{
                   "& .MuiFormLabel-root": {
                     "&.Mui-focused": {
@@ -97,12 +141,12 @@ const ForgotPassword = () => {
                       backgroundColor: theme.palette.primary.main,
                     },
                   }}
-                  disabled={loading}
+                  disabled={isLoading}
                   fullWidth
                 >
                   Send rest password
                 </Button>
-                {loading && (
+                {isLoading && (
                   <CircularProgress
                     size={24}
                     sx={{
@@ -117,16 +161,18 @@ const ForgotPassword = () => {
               </Box>
             </form>
           </Box>
-          <Button
-            variant="outlined"
-            fullWidth
-            sx={{
-              my: "10px",
-              color: theme.palette.grey[900],
-            }}
-          >
-            return to sign?
-          </Button>
+          <Link to="/" style={{ textDecoration: "none" }}>
+            <Button
+              variant="outlined"
+              fullWidth
+              sx={{
+                my: "10px",
+                color: theme.palette.grey[900],
+              }}
+            >
+              return to sign?
+            </Button>
+          </Link>
         </Box>
       </Container>
     </>

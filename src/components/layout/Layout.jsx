@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 import Sidebar from "../sidebar/Sidebar";
-import Navbar from "../navbar/Navbar";
+import Navbar from "../Navbar/Navbar";
 import { Box, Container } from "@mui/material";
 
 const Layout = () => {

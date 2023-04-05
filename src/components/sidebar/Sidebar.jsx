@@ -70,86 +70,10 @@ const LeftSidebar = () => {
       setSelected,
     },
     {
-      title: "Chat",
-      to: "/dashboard/chat",
-      icon: (
-        <MarkUnreadChatAltOutlined
-          sx={{ fontSize: "25px", color: theme.palette.primary.main }}
-        />
-      ),
-      selected,
-      setSelected,
-    },
-    {
-      title: "Packages",
-      to: "/dashboard/packages",
-      icon: (
-        <AddBoxOutlined
-          sx={{ fontSize: "25px", color: theme.palette.primary.main }}
-        />
-      ),
-      selected,
-      setSelected,
-    },
-    // {
-    //   title: "Services",
-    //   to: "/dashboard/services",
-    //   icon: (
-    //     <ContactsOutlined
-    //       sx={{ fontSize: "25px", color: theme.palette.primary.main }}
-    //     />
-    //   ),
-    //   selected,
-    //   setSelected,
-    // },
-    {
-      subMenuTitle: "Requests",
-      subMenuIcon: (
-        <MapOutlined
-          sx={{ fontSize: "25px", color: theme.palette.primary.main }}
-        />
-      ),
-      subMenuItems: [
-        {
-          title: "Job Business",
-          to: "/dashboard/jobs",
-          icon: (
-            <SurfingSharp
-              sx={{ fontSize: "25px", color: theme.palette.primary.main }}
-            />
-          ),
-          selected,
-          setSelected,
-        },
-        {
-          title: "Package Services",
-          to: "/dashboard/package-services",
-          icon: (
-            <BusinessSharp
-              sx={{ fontSize: "25px", color: theme.palette.primary.main }}
-            />
-          ),
-          selected,
-          setSelected,
-        },
-      ],
-    },
-    {
       title: "Contact Us",
       to: "/dashboard/contact-us",
       icon: (
         <ContactEmergencyRounded
-          sx={{ fontSize: "25px", color: theme.palette.primary.main }}
-        />
-      ),
-      selected,
-      setSelected,
-    },
-    {
-      title: "FAQ",
-      to: "/dashboard/faq",
-      icon: (
-        <ContactSupport
           sx={{ fontSize: "25px", color: theme.palette.primary.main }}
         />
       ),
@@ -162,42 +86,6 @@ const LeftSidebar = () => {
       icon: (
         <Settings
           sx={{ fontSize: "25px", color: theme.palette.primary.main }}
-        />
-      ),
-      selected,
-      setSelected,
-    },
-    {
-      title: "Charts",
-    },
-    {
-      title: "BarChart",
-      to: "/dashboard/bar",
-      icon: (
-        <BarChartOutlined
-          sx={{ fontSize: "25px", color: theme.palette.black[1000] }}
-        />
-      ),
-      selected,
-      setSelected,
-    },
-    {
-      title: "PieChart",
-      to: "/dashboard/pie",
-      icon: (
-        <PieChartOutlineOutlined
-          sx={{ fontSize: "25px", color: theme.palette.black[1000] }}
-        />
-      ),
-      selected,
-      setSelected,
-    },
-    {
-      title: "LineChart",
-      to: "/dashboard/line",
-      icon: (
-        <TimelineOutlined
-          sx={{ fontSize: "25px", color: theme.palette.black[1000] }}
         />
       ),
       selected,

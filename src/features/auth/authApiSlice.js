@@ -5,35 +5,35 @@ export const authApiSlice = apiSlice.injectEndpoints({
     endpoints: builder => ({
         login: builder.mutation({
             query: credentials => ({
-                url: '/admin/auth/login',
+                url: '/auth/login',
                 method: 'POST',
                 body: { ...credentials }
             })
         }),
         forgotPassword: builder.mutation({
             query: payload => ({
-                url: '/admin/auth/forgot-password',
+                url: '/auth/forgot-password',
                 method: 'POST',
                 body: { ...payload }
             })
         }),
         resetPassword: builder.mutation({
             query: payload => ({
-                url: '/admin/auth/reset-password',
+                url: '/auth/reset-password',
                 method: 'PUT',
                 body: { ...payload }
             })
         }),
         resend: builder.mutation({
             query: payload => ({
-                url: '/admin/auth/resend-token',
+                url: '/auth/resend-token',
                 method: 'POST',
                 body: { ...payload }
             })
         }),
         refresh: builder.mutation({
             query: () => ({
-                url: '/admin/auth/refresh',
+                url: '/auth/refresh',
                 method: 'GET',
             }),
             async onQueryStarted(arg, { dispatch, queryFulfilled }) {
@@ -47,7 +47,7 @@ export const authApiSlice = apiSlice.injectEndpoints({
         }),
         sendLogout: builder.mutation({
             query: () => ({
-                url: '/admin/auth/logout',
+                url: '/auth/logout',
                 method: 'POST',
             }),
             async onQueryStarted(arg, { dispatch, queryFulfilled }) {

@@ -2,7 +2,7 @@ import * as yup from "yup"
 import Translate from "../../hooks/Translate";
 
 const Login = yup.object().shape({
-    emailUsername: yup
+    email: yup
         .string()
         .trim()
         .required(<Translate validations='validations:required' name='email' />)

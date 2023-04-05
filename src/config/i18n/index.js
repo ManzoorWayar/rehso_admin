@@ -18,7 +18,7 @@ i18n
 		debug: false,
 		keySeparator: false,
 		react: {
-			useSuspense: true,
+			useSuspense: false,
 		},
 		interpolation: {
 			escapeValue: true,

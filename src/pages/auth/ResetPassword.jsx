@@ -1,3 +1,5 @@
+import React from "react";
+import { useState, useEffect } from "react";
 import {
   Container,
   Box,
@@ -15,31 +17,103 @@ import {
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import logo from "../../assets/img/logo2.png";
+import { yupResolver } from "@hookform/resolvers/yup";
+import withReactContent from "sweetalert2-react-content";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
-import React from "react";
+import Swal from "sweetalert2";
 import VerificationInput from "react-verification-input";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
+import ResetPasswords from "../../utils/validationSchema/ResetPassword";
+import {
+  useResendMutation,
+  useResetPasswordMutation,
+} from "../../features/auth/authApiSlice";
 import Meta from "../../components/common/Meta";
+const MySwal = withReactContent(Swal);
+
 const ResetPassword = () => {
+  const { userInfo } = useSelector((state) => state.auth);
+
   const theme = useTheme();
-
   const [showPassword, setShowPassword] = useState(false);
-
   const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const { t } = useTranslation();
+
+  const [otpCode, setOTPCode] = useState(null);
+  const onChange = (code) => setOTPCode(code);
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const [resend] = useResendMutation();
+  const [resetPassword, { isLoading, isSuccess }] = useResetPasswordMutation();
 
   const {
     register,
-    formState: { errors },
     handleSubmit,
-  } = useForm();
-  const onSubmit = (data) => console.log(data);
-  const onChange = (code) => setOTPCode(code);
-  const [otpCode, setOTPCode] = useState(null);
-  const [loading, setLoading] = useState(false);
+    setError,
+    formState: { errors, isSubmitting },
+    reset,
+  } = useForm({
+    mode: "onChange",
+    resolver: yupResolver(ResetPasswords),
+  });
+
+  useEffect(() => {
+    if (!userInfo) navigate("/");
+  }, [userInfo]);
+
+  const resendHandler = async (e) => {
+    e.preventDefault();
+
+    try {
+      await resend({ email: userInfo.email }).unwrap();
+    } catch (rejectResp) {
+      MySwal.fire({
+        title: t("error"),
+        text: t("messages:failed"),
+        icon: "warning",
+        timer: 2000,
+        timerProgressBar: true,
+        showConfirmButton: false,
+      });
+    }
+  };
+
+  const onSubmit = async (data) => {
+    data.otpCode = otpCode;
+    data.email = userInfo.email;
+
+    try {
+      const userData = await resetPassword(data).unwrap();
+
+      if (userData.success) return navigate("/");
+    } catch (rejectResp) {
+      const { data } = rejectResp;
+
+      if (data?.errors) {
+        data.errors.forEach((error) =>
+          setError(error["param"], { type: "manual", message: error["msg"] })
+        );
+      } else {
+        MySwal.fire({
+          title: t("error"),
+          text: t(data?.message),
+          icon: "warning",
+          timer: 2000,
+          timerProgressBar: true,
+          showConfirmButton: false,
+        });
+      }
+    }
+  };
 
   return (
     <>
-      <Meta title="Reset Password | Rahanet Dashboard" />
+      <Meta title="Reset Password | REHSO Dashboard" />
 
       <Container
         maxWidth="sm"
@@ -78,7 +152,7 @@ const ResetPassword = () => {
               color: theme.palette.grey[900],
             }}
           >
-            Enter the code that you recive on your mobile
+            Enter the code that you recive on your email
           </Typography>
           <Box
             display="flex"
@@ -127,7 +201,9 @@ const ResetPassword = () => {
                 />
                 <Typography alignSelf="start" mt="10px" sx={{ mt: "15px" }}>
                   Did not recived any token{" "}
-                  <Typography
+                  <Button
+                    variant="text"
+                    onClick={resendHandler}
                     sx={{
                       color: theme.palette.primary.main,
                       display: "inline",
@@ -136,13 +212,14 @@ const ResetPassword = () => {
                     }}
                   >
                     Resend
-                  </Typography>
+                  </Button>
                 </Typography>
               </Box>
 
               <FormControl
-                error={errors.password ? true : false}
+                error={errors.newPassword ? true : false}
                 variant="outlined"
+                name="newPassword"
                 fullWidth
                 sx={{
                   mt: "20px",
@@ -153,9 +230,9 @@ const ResetPassword = () => {
                   },
                 }}
               >
-                <InputLabel htmlFor="password">New password</InputLabel>
+                <InputLabel htmlFor="newPassword">New password</InputLabel>
                 <OutlinedInput
-                  {...register("password", { required: true })}
+                  {...register("newPassword", { required: true })}
                   type={showPassword ? "text" : "password"}
                   endAdornment={
                     <InputAdornment position="end">
@@ -170,19 +247,18 @@ const ResetPassword = () => {
                   }
                   label="New password"
                 />
-                <FormHelperText>
-                  {errors.password && "This field is required"}
-                </FormHelperText>
+                <FormHelperText>{errors?.newPassword?.message}</FormHelperText>
               </FormControl>
               <TextField
                 {...register("confirmPassword", { required: true })}
                 fullWidth
                 id="confirmPassword"
-                label="ConfirmPassword"
+                name="confirmPassword"
+                label="confirmPassword"
                 variant="outlined"
                 type="password"
-                error={errors.confirmPassword ? true : false}
-                helperText={errors.confirmPassword && "This field is required"}
+                error={errors?.confirmPassword ? true : false}
+                helperText={errors?.confirmPassword?.message}
                 sx={{
                   mt: "10px",
                   "& .MuiFormLabel-root": {
@@ -206,12 +282,12 @@ const ResetPassword = () => {
                       backgroundColor: theme.palette.primary.main,
                     },
                   }}
-                  disabled={loading}
+                  disabled={isLoading}
                   fullWidth
                 >
                   Submit
                 </Button>
-                {loading && (
+                {isLoading && (
                   <CircularProgress
                     size={24}
                     sx={{

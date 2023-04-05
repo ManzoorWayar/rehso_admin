@@ -8,7 +8,7 @@ import reportWebVitals from "./reportWebVitals";
 import { ProSidebarProvider } from "react-pro-sidebar";
 
 import "./index.css";
-import "./config/i18n";
+// import "./config/i18n";
 import "react-toastify/dist/ReactToastify.css";
 import Loader from "./components/common/Loader";
 

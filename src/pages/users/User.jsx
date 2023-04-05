@@ -69,68 +69,12 @@ const User = () => {
                 type: "string",
             },
             {
-                field: "username",
-                valueFormatter: ({ value }) => {
-                    return value.username;
-                },
-
-                headerName: "Username",
-                flex: 1,
-                type: "string",
-            },
-            {
                 field: "email",
                 valueFormatter: ({ value }) => {
                     return value?.email;
                 },
 
                 headerName: "Email",
-                flex: 1,
-                type: "string",
-            },
-            {
-                field: "gender",
-                valueFormatter: ({ value }) => {
-                    return value?.gender;
-                },
-
-                headerName: "Gender",
-                flex: 1,
-                type: "string",
-            },
-            {
-                field: "role",
-                valueFormatter: ({ value }) => {
-                    if (typeof value !== 'undefined') {
-                        return `${Object.keys(value)}: ${Object.values(value)}`
-                    }
-                },
-
-                headerName: "Role",
-                flex: 1,
-                type: "string",
-            },
-            // {
-            //     field: "ability",
-            //     valueFormatter: (value) => {
-            //         if (typeof value !== 'undefined') {
-            //             return Object.values(value)
-            //         } else {
-            //             return 'SuperAdmin'
-            //         }
-            //     },
-
-            //     headerName: "Ability",
-            //     flex: 1,
-            //     type: "string",
-            // },
-            {
-                field: "isActive",
-                valueFormatter: ({ value }) => {
-                    return value?.isActive;
-                },
-
-                headerName: "Is-Active",
                 flex: 1,
                 type: "string",
             },

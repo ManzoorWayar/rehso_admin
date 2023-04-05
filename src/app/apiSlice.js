@@ -29,11 +29,11 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
     if (result?.error?.status === 403) {
 
         // send refresh token to get new access token 
-        const refreshResult = await baseQuery('/admin/auth/refresh', api, extraOptions)
+        const refreshResult = await baseQuery('/auth/refresh', api, extraOptions)
 
         if (refreshResult?.data) {
             // store the new token 
-            api.dispatch(setCredentials({ userData: refreshResult.data }))
+            api.dispatch(setCredentials({ ...refreshResult.data }))
 
             // retry original query with new access token
             result = await baseQuery(args, api, extraOptions)
@@ -52,6 +52,6 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
 
 export const apiSlice = createApi({
     baseQuery: baseQueryWithReauth,
-    tagTypes: ['Contact', 'Blog', 'Critics', 'Package', 'Comment', 'Faq', 'Job'],
+    tagTypes: ['Volunteer'],
     endpoints: builder => ({})
 })

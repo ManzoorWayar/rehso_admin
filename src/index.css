@@ -19,3 +19,7 @@
 .scrollbar:hover ::-webkit-scrollbar-thumb{
    background: #21295c;
 }
+.tag-a {
+	color: #fff;
+	text-decoration: none;
+}

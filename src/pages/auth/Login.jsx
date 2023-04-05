@@ -60,6 +60,7 @@ const Login = () => {
   const handleToggle = () => setPersist(prev => !prev)
 
   const onSubmitHandler = async (data) => {
+    console.log(data);
     try {
       const userData = await login(data).unwrap()
       dispatch(setCredentials({ userData }))
@@ -89,7 +90,7 @@ const Login = () => {
 
   return (
     <>
-      <Meta title="Login | Rahanet Dashboard" />
+      <Meta title="Login | REHSO Dashboard" />
 
       <Container
         maxWidth="sm"
@@ -118,28 +119,28 @@ const Login = () => {
               fontWeight: "bold",
             }}
           >
-            Sign In Rahanet
+            Sign In
           </Typography>
           <Typography
             variant="h5"
-            textAlign="left"
+            textAlign="center"
             px="20px"
             sx={{
               color: theme.palette.grey[900],
             }}
           >
-            Welcome to Rahanet management system
+            Welcome to REHSO management system
           </Typography>
           <Box noValidate autoComplete="off" sx={{ p: "20px" }}>
             <form onSubmit={handleSubmit(onSubmitHandler)}>
               <TextField
-                {...register("emailUsername", { required: true })}
+                {...register("email", { required: true })}
                 fullWidth
-                id="emailUsername"
+                id="email"
                 label="Email"
                 variant="outlined"
-                error={errors.emailUsername ? true : false}
-                helperText={errors.emailUsername?.message}
+                error={errors.email ? true : false}
+                helperText={errors.email?.message}
                 sx={{
                   "& .MuiFormLabel-root": {
                     "&.Mui-focused": {
@@ -193,13 +194,16 @@ const Login = () => {
                     checked={persist}
                   />
                 </FormGroup>
-                <Button
-                  variant="text"
-                  size="small"
-                  sx={{ color: theme.palette.grey[900] }}
-                >
-                  Forgot Password?
-                </Button>
+                <Link to='/auth/forgot-password' className='tag-a'>
+                  <Button
+                    variant="text"
+                    size="small"
+                    sx={{ color: theme.palette.grey[900] }}
+                    to='/auth/forgot-password'
+                  >
+                    Forgot Password?
+                  </Button>
+                </Link>
               </FlexBetween>
               <Box sx={{ position: "relative", mt: "20px" }}>
                 <Button

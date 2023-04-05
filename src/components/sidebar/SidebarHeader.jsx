@@ -36,7 +36,7 @@ const SidebarHeader = () => {
               color={theme.palette.grey[900]}
               fontWeight="bold"
             >
-              Rahanet
+              REHSO
             </Typography>
             <Typography
               variant="body2"
