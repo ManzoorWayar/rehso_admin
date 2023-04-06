@@ -13,6 +13,7 @@ import PersistLogin from "./features/auth/PersistLogin";
 import NotFound from "./components/common/NotFound";
 import Unauthorized from "./components/common/Unauthorized";
 import Protected from "./components/common/Protected";
+import Volunteer from "./pages/volunteer/Volunteer";
 
 const Prefetch = lazy(() => import("./features/auth/PreFetch"));
 const AppProvider = lazy(() => import("./components/layout/AppProvider"));
@@ -21,7 +22,6 @@ const Login = lazy(() => import("./pages/auth/Login"));
 const ResetPassword = lazy(() => import("./pages/auth/ResetPassword"));
 const ForgotPassword = lazy(() => import("./pages/auth/ForgotPassword"));
 
-const SingleFaq = lazy(() => import("./pages/FAQ/SingleFaq"));
 const ContactUS = lazy(() => import("./pages/contactUs/ContactUs"));
 
 const User = lazy(() => import("./pages/users/User"));
@@ -45,6 +45,14 @@ const App = () => {
           <Route element={<Prefetch />}>
             <Route path="/dashboard" element={<Layout />}>
               <Route index element={<Dashboard />} />
+              <Route
+                path="users"
+                element={
+                  <Protected>
+                    <User />
+                  </Protected>
+                }
+              />
               <Route path="users">
                 <Route
                   index
@@ -67,6 +75,8 @@ const App = () => {
 
               <Route path="blogs" element={<Blog />} />
               <Route path="blogs/:id" element={<SingleBlog />} />
+
+              <Route path="volunteer" element={<Volunteer />} />
             </Route>
           </Route>
         </Route>
