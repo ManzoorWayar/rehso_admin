@@ -25,9 +25,10 @@ const SingleFaq = lazy(() => import("./pages/FAQ/SingleFaq"));
 const ContactUS = lazy(() => import("./pages/contactUs/ContactUs"));
 
 const User = lazy(() => import("./pages/users/User"));
+const CreateUser = lazy(() => import("./pages/users/CreateUser"));
+
 const Blog = lazy(() => import("./pages/blogs/Blog"));
 const SingleBlog = lazy(() => import("./pages/blogs/SingelBlog"));
-
 
 const App = () => {
   const router = createBrowserRouter(
@@ -44,23 +45,28 @@ const App = () => {
           <Route element={<Prefetch />}>
             <Route path="/dashboard" element={<Layout />}>
               <Route index element={<Dashboard />} />
-              <Route
-                path="users"
-                element={
-                  <Protected>
-                    <User />
-                  </Protected>
-                }
-              />
+              <Route path="users">
+                <Route
+                  index
+                  element={
+                    <Protected>
+                      <User />
+                    </Protected>
+                  }
+                />
 
-
-
-
+                <Route
+                  path="create"
+                  element={
+                    <Protected>
+                      <CreateUser />
+                    </Protected>
+                  }
+                />
+              </Route>
 
               <Route path="blogs" element={<Blog />} />
               <Route path="blogs/:id" element={<SingleBlog />} />
-
-
             </Route>
           </Route>
         </Route>

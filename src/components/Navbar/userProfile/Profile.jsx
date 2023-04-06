@@ -3,6 +3,7 @@ import {
   useTheme,
   Box,
   Menu,
+  Avatar,
   MenuItem,
   ListItemIcon,
   Typography,
@@ -17,7 +18,7 @@ import {
   ArrowDropDownOutlined,
 } from "@mui/icons-material";
 import { useSelector } from "react-redux";
-import { useSendLogoutMutation } from "../../../features/auth/authApiSlice"
+import { useSendLogoutMutation } from "../../../features/auth/authApiSlice";
 import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
@@ -25,9 +26,9 @@ const Profile = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
-  const navigate = useNavigate()
-  const { userInfo } = useSelector(state => state.auth)
-  const [sendLogout, { }] = useSendLogoutMutation()
+  const navigate = useNavigate();
+  const { userInfo } = useSelector((state) => state.auth);
+  const [sendLogout, {}] = useSendLogoutMutation();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -38,9 +39,9 @@ const Profile = () => {
   };
 
   const logoutHandler = () => {
-    sendLogout()
-    navigate('/')
-  }
+    sendLogout();
+    navigate("/");
+  };
 
   return (
     <>
@@ -66,15 +67,9 @@ const Profile = () => {
               gap: "1rem",
             }}
           >
-            <Box
-              component="img"
-              alt="profile"
-              src={userInfo?.image}
-              height="32px"
-              width="32px"
-              borderRadius="50%"
-              sx={{ objectFit: "cover" }}
-            />
+            <Avatar sx={{ bgcolor: theme.palette.primary[400] }}>
+              {userInfo?.fullName[0]}
+            </Avatar>
 
             <Box textAlign="left">
               <Typography
