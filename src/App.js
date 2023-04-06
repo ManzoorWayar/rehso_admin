@@ -13,6 +13,7 @@ import PersistLogin from "./features/auth/PersistLogin";
 import NotFound from "./components/common/NotFound";
 import Unauthorized from "./components/common/Unauthorized";
 import Protected from "./components/common/Protected";
+import Volunteer from "./pages/volunteer/Volunteer";
 
 const Prefetch = lazy(() => import("./features/auth/PreFetch"));
 const AppProvider = lazy(() => import("./components/layout/AppProvider"));
@@ -21,13 +22,11 @@ const Login = lazy(() => import("./pages/auth/Login"));
 const ResetPassword = lazy(() => import("./pages/auth/ResetPassword"));
 const ForgotPassword = lazy(() => import("./pages/auth/ForgotPassword"));
 
-const SingleFaq = lazy(() => import("./pages/FAQ/SingleFaq"));
 const ContactUS = lazy(() => import("./pages/contactUs/ContactUs"));
 
 const User = lazy(() => import("./pages/users/User"));
 const Blog = lazy(() => import("./pages/blogs/Blog"));
 const SingleBlog = lazy(() => import("./pages/blogs/SingelBlog"));
-
 
 const App = () => {
   const router = createBrowserRouter(
@@ -53,12 +52,10 @@ const App = () => {
                 }
               />
 
-
-
-
-
               <Route path="blogs" element={<Blog />} />
               <Route path="blogs/:id" element={<SingleBlog />} />
+
+              <Route path="volunteer" element={<Volunteer />} />
 
 
             </Route>

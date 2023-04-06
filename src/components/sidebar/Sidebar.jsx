@@ -2,20 +2,11 @@ import { Sidebar, Menu, useProSidebar } from "react-pro-sidebar";
 import { useTheme, Box, useMediaQuery } from "@mui/material";
 import {
   DashboardOutlined,
-  MarkUnreadChatAltOutlined,
-  BarChartOutlined,
-  PieChartOutlineOutlined,
-  TimelineOutlined,
   PeopleOutlined,
-  ContactsOutlined,
-  MapOutlined,
   BookOnlineOutlined,
   Settings,
   ContactEmergencyRounded,
-  ContactSupport,
-  AddBoxOutlined,
-  BusinessSharp,
-  SurfingSharp,
+  VolunteerActivismOutlined
 } from "@mui/icons-material";
 import { useState, useEffect } from "react";
 import SidebarItem from "./SidebarItem";
@@ -63,6 +54,17 @@ const LeftSidebar = () => {
       to: "/dashboard/blogs",
       icon: (
         <BookOnlineOutlined
+          sx={{ fontSize: "25px", color: theme.palette.primary.main }}
+        />
+      ),
+      selected,
+      setSelected,
+    },
+    {
+      title: "Volunteers",
+      to: "/dashboard/volunteer",
+      icon: (
+        <VolunteerActivismOutlined
           sx={{ fontSize: "25px", color: theme.palette.primary.main }}
         />
       ),
