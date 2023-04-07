@@ -31,7 +31,7 @@ const User = () => {
   const [pageSize, setPageSize] = useState(10);
 
   const [
-    deleteFaq,
+    deleteUser,
     { isSuccess: isDelSuccess, isError: isDelError, error: delerror },
   ] = useDeleteUserMutation();
 
@@ -46,7 +46,7 @@ const User = () => {
       confirmButtonText: "Yes, delete it!",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        await deleteFaq(id);
+        await deleteUser(id);
 
         MySwal.fire("Deleted!", "Your file has been deleted.", "success");
       }

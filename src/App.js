@@ -26,6 +26,7 @@ const ContactUS = lazy(() => import("./pages/contactUs/ContactUs"));
 
 const User = lazy(() => import("./pages/users/User"));
 const CreateUser = lazy(() => import("./pages/users/CreateUser"));
+const EditUser = lazy(() => import("./pages/users/EditUser"));
 
 const Blog = lazy(() => import("./pages/blogs/Blog"));
 const SingleBlog = lazy(() => import("./pages/blogs/SingelBlog"));
@@ -68,6 +69,15 @@ const App = () => {
                   element={
                     <Protected>
                       <CreateUser />
+                    </Protected>
+                  }
+                />
+
+                <Route
+                  path="edit/:id"
+                  element={
+                    <Protected>
+                      <EditUser />
                     </Protected>
                   }
                 />

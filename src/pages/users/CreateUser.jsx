@@ -57,13 +57,7 @@ const CreateUser = () => {
 
   const onSubmitHandler = async (data) => {
     try {
-      data.isSuperAdmin = isSuperAdmin;
-
-      const formData = new FormData();
-
-      formData.append(data);
-
-      await addUser(formData).unwrap();
+      await addUser(data).unwrap();
       await MySwal.fire({
         title: t("success"),
         text: t("messages:success", { key: "" }),
@@ -96,7 +90,7 @@ const CreateUser = () => {
 
   return (
     <Grid container sx={{ mt: "10px", mb: "20px" }} gap="20px">
-      <Grid item xs={12} sm={7}>
+      <Grid item xs={12} sm={7} sx={{ m: "auto" }}>
         <form onSubmit={handleSubmit(onSubmitHandler)}>
           <Box
             sx={{
@@ -141,7 +135,6 @@ const CreateUser = () => {
                   error={errors.email && true}
                   helperText={errors.email?.message}
                   sx={{
-                    mr: "10px",
                     "& .MuiFormLabel-root": {
                       "&.Mui-focused": {
                         color: theme.palette.grey[900],
@@ -158,6 +151,7 @@ const CreateUser = () => {
                   fullWidth
                   sx={{
                     mt: "20px",
+                    mr: "10px",
                     ".MuiFormLabel-root": {
                       "&.Mui-focused": {
                         color: theme.palette.grey[900],
