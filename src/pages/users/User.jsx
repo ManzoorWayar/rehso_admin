@@ -58,7 +58,7 @@ const User = () => {
       {
         field: "id",
         headerName: "#",
-        flex: 1,
+        flex: 0.2,
         type: "string",
         renderCell: (index) => index.api.getRowIndex(index.row.id) + 1,
       },

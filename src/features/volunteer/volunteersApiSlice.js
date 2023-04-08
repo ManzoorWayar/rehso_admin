@@ -12,7 +12,7 @@ export const volunteerApiSlice = apiSlice.injectEndpoints({
     endpoints: builder => ({
         getVolunteers: builder.query({
             query: () => ({
-                url: '/request/volunteer',
+                url: '/volunteer',
                 validateStatus: (response, result) => {
                     return response.status === 200 && !result.isError
                 },
@@ -36,7 +36,7 @@ export const volunteerApiSlice = apiSlice.injectEndpoints({
         changeVolunteerStatus: builder.mutation({
             query: ({ id, ...status }) => {
                 return ({
-                    url: `/request/volunteer/status/${id} `,
+                    url: `/volunteer/status/${id} `,
                     method: 'PUT',
                     body: { ...status }
                 })

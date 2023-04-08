@@ -61,7 +61,7 @@ const Navbar = () => {
           </IconButton>
 
           {/* Search input */}
-          <FlexBetween
+          {/* <FlexBetween
             backgroundColor={theme.palette.light.main}
             borderRadius="9px"
             gap="3rem"
@@ -78,7 +78,7 @@ const Navbar = () => {
             <IconButton>
               <Search />
             </IconButton>
-          </FlexBetween>
+          </FlexBetween> */}
         </FlexBetween>
 
         {/* RIGHT SIDE */}
@@ -109,8 +109,8 @@ const Navbar = () => {
               }}
             />
           </IconButton>
-          <Notifications />
-          <Messages />
+          {/* <Notifications />
+          <Messages /> */}
           <Profile />
         </FlexBetween>
       </Toolbar>

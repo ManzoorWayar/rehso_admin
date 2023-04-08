@@ -27,10 +27,10 @@ const Dashboard = () => {
       <Meta />
 
       <Container maxWidth="xl">
-        <Header title="Dashboard" subtitle="Welcome to your dashboard" />
+        <Header title="Dashboard" subtitle="Welcome Back!" />
 
         {/* stat box container */}
-        <Grid
+        {/* <Grid
           container
           spacing={2}
           gap={1}
@@ -82,7 +82,7 @@ const Dashboard = () => {
               />
             }
           />
-        </Grid>
+        </Grid> */}
 
         {/* Graph and recent transaction container */}
         <Grid container mt={"2rem"} gap={3} mb={"2rem"}>
@@ -138,7 +138,7 @@ const Dashboard = () => {
           </Grid>
 
           {/* Recent Transaction grid */}
-          <Grid
+          {/* <Grid
             width="100%"
             xs={12}
             md={4}
@@ -195,7 +195,7 @@ const Dashboard = () => {
                 </Box>
               ))}
             </Box>
-          </Grid>
+          </Grid> */}
         </Grid>
       </Container>
     </>

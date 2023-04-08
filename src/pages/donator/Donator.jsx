@@ -6,30 +6,37 @@ import Meta from "../../components/common/Meta";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
-    selectAllVolunteers,
-    useGetVolunteersQuery,
-    useChangeVolunteerStatusMutation,
-} from "../../features/volunteer/volunteersApiSlice";
-import { CheckBoxOutlined, CloseOutlined, Pending } from "@mui/icons-material";
+    selectAllDonators,
+    useGetDonatorsQuery,
+    useChangeDonatorstatusMutation,
+} from "../../features/donator/donatorApiSlice";
+import { CheckBoxOutlined, Pending } from "@mui/icons-material";
 
-const Volunteer = () => {
+const Donator = () => {
     const theme = useTheme();
     const navigate = useNavigate();
     const isNoneMobile = useMediaQuery("(min-width:900px)");
 
-    const { isLoading, isSuccess, isError, error } = useGetVolunteersQuery();
+    const { isLoading, isSuccess, isError, error } = useGetDonatorsQuery();
 
-    const [changeStatus] = useChangeVolunteerStatusMutation();
+    const [changeStatus] = useChangeDonatorstatusMutation();
 
     const changeContactStatus = async (status, id) => {
         await changeStatus({ id, status });
     };
 
-    const volunteers = useSelector(selectAllVolunteers);
+    const donators = useSelector(selectAllDonators);
     const [pageSize, setPageSize] = useState(11);
 
     const columns = useMemo(
         () => [
+            {
+                field: "id",
+                headerName: "#",
+                flex: 0.2,
+                type: "string",
+                renderCell: (index) => index.api.getRowIndex(index.row.id) + 1,
+            },
             {
                 field: "firstName",
                 valueFormatter: (value) => {
@@ -60,10 +67,10 @@ const Volunteer = () => {
                 type: "string",
             },
             {
-                field: "phones",
-                headerName: "Phone Numbers",
+                field: "phone",
+                headerName: "Phone Number",
                 valueFormatter: (value) => {
-                    return value?.phones;
+                    return value?.phone;
                 },
                 flex: 1.5,
                 type: "string",
@@ -104,51 +111,6 @@ const Volunteer = () => {
                 flex: 0.7,
                 type: "string",
             },
-            {
-                field: "careers",
-                headerName: "Careers",
-                valueFormatter: ({ value }) => {
-                    return value?.careers
-                },
-                flex: 1.5,
-                type: "string",
-            },
-            {
-                field: "careerType",
-                headerName: "Career Type",
-                valueFormatter: ({ value }) => {
-                    return value
-                },
-                flex: 1,
-                type: "string",
-            },
-            {
-                field: "education",
-                headerName: "Education",
-                valueFormatter: ({ value }) => {
-                    return value?.education;
-                },
-                flex: 1,
-                type: "string",
-            },
-            // {
-            //     field: "attachments",
-            //     headerName: "Attachments",
-            //     valueFormatter: (value) => {
-            //         return value?.attachments;
-            //     },
-            //     flex: 1,
-            //     type: "string",
-            // },
-            // {
-            //     field: "image",
-            //     headerName: "Image",
-            //     valueFormatter: (value) => {
-            //         return value?.image;
-            //     },
-            //     flex: 1,
-            //     type: "string",
-            // },
             {
                 field: "status",
                 headerName: "Status",
@@ -216,12 +178,16 @@ const Volunteer = () => {
         [theme]
     );
 
+    if (isLoading) {
+        return <h3>loading</h3>
+    }
+
     return (
         <>
-            <Meta title="Volunteer | REHSO Dashboard" />
+            <Meta title="Donator | REHSO Dashboard" />
 
             <Box m="15px">
-                <Header title="Volunteer's List" />
+                <Header title="Donator's List" />
                 <Box
                     className="scrollbar"
                     m="10px 0 0 0"
@@ -255,7 +221,7 @@ const Volunteer = () => {
                         onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
                         rowsPerPageOptions={[11, 21]}
                         pagination
-                        rows={volunteers}
+                        rows={donators}
                         columns={columns}
                     />
                 </Box>
@@ -264,4 +230,4 @@ const Volunteer = () => {
     );
 };
 
-export default Volunteer;
+export default Donator;

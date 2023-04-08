@@ -23,6 +23,7 @@ const ResetPassword = lazy(() => import("./pages/auth/ResetPassword"));
 const ForgotPassword = lazy(() => import("./pages/auth/ForgotPassword"));
 
 const ContactUS = lazy(() => import("./pages/contactUs/ContactUs"));
+const Donator = lazy(() => import("./pages/donator/Donator"));
 
 const User = lazy(() => import("./pages/users/User"));
 const CreateUser = lazy(() => import("./pages/users/CreateUser"));
@@ -87,6 +88,8 @@ const App = () => {
               <Route path="blogs/:id" element={<SingleBlog />} />
 
               <Route path="volunteer" element={<Volunteer />} />
+
+              <Route path="donator" element={<Donator />} />
             </Route>
           </Route>
         </Route>

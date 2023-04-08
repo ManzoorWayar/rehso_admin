@@ -6,6 +6,7 @@ import {
   BookOnlineOutlined,
   Settings,
   ContactEmergencyRounded,
+  HandshakeOutlined,
   VolunteerActivismOutlined
 } from "@mui/icons-material";
 import { useState, useEffect } from "react";
@@ -49,11 +50,22 @@ const LeftSidebar = () => {
       selected,
       setSelected,
     },
+    // {
+    //   title: "Blogs",
+    //   to: "/dashboard/blogs",
+    //   icon: (
+    //     <BookOnlineOutlined
+    //       sx={{ fontSize: "25px", color: theme.palette.primary.main }}
+    //     />
+    //   ),
+    //   selected,
+    //   setSelected,
+    // },
     {
-      title: "Blogs",
-      to: "/dashboard/blogs",
+      title: "Volunteers",
+      to: "/dashboard/volunteer",
       icon: (
-        <BookOnlineOutlined
+        <HandshakeOutlined
           sx={{ fontSize: "25px", color: theme.palette.primary.main }}
         />
       ),
@@ -61,8 +73,8 @@ const LeftSidebar = () => {
       setSelected,
     },
     {
-      title: "Volunteers",
-      to: "/dashboard/volunteer",
+      title: "Donators",
+      to: "/dashboard/donator",
       icon: (
         <VolunteerActivismOutlined
           sx={{ fontSize: "25px", color: theme.palette.primary.main }}
@@ -71,28 +83,28 @@ const LeftSidebar = () => {
       selected,
       setSelected,
     },
-    {
-      title: "Contact Us",
-      to: "/dashboard/contact-us",
-      icon: (
-        <ContactEmergencyRounded
-          sx={{ fontSize: "25px", color: theme.palette.primary.main }}
-        />
-      ),
-      selected,
-      setSelected,
-    },
-    {
-      title: "Settings",
-      to: "/dashboard/settings",
-      icon: (
-        <Settings
-          sx={{ fontSize: "25px", color: theme.palette.primary.main }}
-        />
-      ),
-      selected,
-      setSelected,
-    },
+    // {
+    //   title: "Contact Us",
+    //   to: "/dashboard/contact-us",
+    //   icon: (
+    //     <ContactEmergencyRounded
+    //       sx={{ fontSize: "25px", color: theme.palette.primary.main }}
+    //     />
+    //   ),
+    //   selected,
+    //   setSelected,
+    // },
+    // {
+    //   title: "Settings",
+    //   to: "/dashboard/settings",
+    //   icon: (
+    //     <Settings
+    //       sx={{ fontSize: "25px", color: theme.palette.primary.main }}
+    //     />
+    //   ),
+    //   selected,
+    //   setSelected,
+    // },
   ];
 
   return (
