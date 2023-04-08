@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
+import { DataGrid, GridActionsCellItem, GridToolbar } from "@mui/x-data-grid";
 import Header from "../../components/Header";
 import { Box, useTheme, useMediaQuery, Tooltip, Button } from "@mui/material";
 import Meta from "../../components/common/Meta";
@@ -190,6 +190,13 @@ const User = () => {
             pagination
             rows={users}
             columns={columns}
+            components={{ Toolbar: GridToolbar }}
+            componentsProps={{
+              toolbar: {
+                showQuickFilter: true,
+                quickFilterProps: { debounceMs: 500 },
+              },
+            }}
           />
         </Box>
       </Box>
