@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
+import { DataGrid, GridActionsCellItem, GridToolbar } from "@mui/x-data-grid";
 import Header from "../../components/Header";
 import { Box, useTheme, useMediaQuery, Tooltip } from "@mui/material";
 import Meta from "../../components/common/Meta";
@@ -169,7 +169,7 @@ const Volunteer = () => {
         valueFormatter: (value) => {
           return value?.status;
         },
-        flex: 0.7,
+        flex: 1,
         type: "string",
       },
       {
@@ -300,6 +300,13 @@ const Volunteer = () => {
             pagination
             rows={volunteers}
             columns={columns}
+            components={{ Toolbar: GridToolbar }}
+            componentsProps={{
+              toolbar: {
+                showQuickFilter: true,
+                quickFilterProps: { debounceMs: 500 },
+              },
+            }}
           />
         </Box>
       </Box>
